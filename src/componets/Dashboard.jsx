@@ -8,14 +8,14 @@ import { useSetUser } from "../hooks/supabase/useSetUser";
 const Dashboard = () => {
   const { session, signOut } = UserAuth();
   const navigate = useNavigate();
-  // const {setUser} = useSetUser();
+  const {setUser} = useSetUser();
   
-  // useEffect(() => {
-  //   if(session){
-  //     console.log("session", session);
-  //     setUser();
-  //   }
-  // },[])
+  useEffect(() => {
+    if(session){
+      console.log("session", session);
+      setUser();
+    }
+  },[])
 
   console.log(session);
 

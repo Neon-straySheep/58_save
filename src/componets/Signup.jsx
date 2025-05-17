@@ -25,7 +25,7 @@ const Signup = () => {
       const result = await signUpNewUser(email, password);
 
       if (result.success) {
-        setUser();
+        // setUser();
         navigate("/dashboard");   
       }
     } catch (err) {

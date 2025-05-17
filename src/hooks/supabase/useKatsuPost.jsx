@@ -2,12 +2,12 @@ import React from "react";
 import { supabase } from "../../supabaseClient";
 import { UserAuth } from "../../context/AuthContext";
 
-export const useGoodPost = () => {
-  const { session } = UserAuth();
+export const useKatsuPost = () => {
+    const { session } = UserAuth();
 
-  async function good(postId) {
-    const { data, error } = await supabase.from("good").insert({
-      id: postId,
+  async function katsu(postId) {
+    const { data, error } = await supabase.from("katsu").insert({
+      id:  postId,
       user_id: session.user.id,
     });
     if (error) {
@@ -18,7 +18,7 @@ export const useGoodPost = () => {
     }
   }
 
-  return {
-    good,
-  };
+  return{
+    katsu,
+  }
 };
