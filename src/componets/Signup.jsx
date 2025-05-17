@@ -13,10 +13,10 @@ const Signup = () => {
   console.log(session);
   const {setUser} = useSetUser();
 
-  if (session) {
-    setUser();
-    navigate("/dashboard");
-  }
+  // if (session) {
+  //   setUser();
+  //   navigate("/dashboard");
+  // }
 
   const handleSiginUp = async (e) => {
     e.preventDefault();
@@ -25,7 +25,8 @@ const Signup = () => {
       const result = await signUpNewUser(email, password);
 
       if (result.success) {
-        // navigate("/dashboard");   
+        setUser();
+        navigate("/dashboard");   
       }
     } catch (err) {
       setError("an error occured");
