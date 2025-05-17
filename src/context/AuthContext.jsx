@@ -5,7 +5,8 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
-
+  console.log("session--------: ", session);
+  // console.log("session: ", sessi
   // Sign up
   const signUpNewUser = async (email, password) => {
     const { data, error } = await supabase.auth.signUp({
@@ -17,6 +18,8 @@ export const AuthContextProvider = ({ children }) => {
       console.error("there was a problem signing up: ", error);
       return { success: false, error };
     }
+    setSession(data.session);
+    console.log("sign up success: ", data);
     return { success: true, data };
   };
 
@@ -31,6 +34,7 @@ export const AuthContextProvider = ({ children }) => {
         console.error("sign in error occured: ", error);
         return { success: false, error: error.message };
       }
+      setSession(data.session);
       console.log("sign-in success: ", data);
       return { success: true, data };
     } catch (error) {
@@ -38,15 +42,18 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     console.log("session: ", session);
+      
+  //     setSession(session);
+  //   });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  //   supabase.auth.onAuthStateChange((_event, session) => {
+  //     console.log("onAuthStateChange: ", session);
+  //     setSession(session);
+  //   });
+  // }, [session]);
 
   // Sign out
   const signOut = () => {
@@ -68,3 +75,8 @@ export const AuthContextProvider = ({ children }) => {
 export const UserAuth = () => {
   return useContext(AuthContext);
 };
+
+export const useUserAuth = () => {
+  return useContext(AuthContext);
+};
+

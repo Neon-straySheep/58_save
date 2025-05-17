@@ -12,6 +12,10 @@ const Signup = () => {
   const navigate = useNavigate();
   console.log(session);
 
+  if (session) {
+    navigate("/dashboard");
+  }
+
   const handleSiginUp = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,7 +23,8 @@ const Signup = () => {
       const result = await signUpNewUser(email, password);
 
       if (result.success) {
-        navigate("/dashboard");
+
+        // navigate("/dashboard");   
       }
     } catch (err) {
       setError("an error occured");
