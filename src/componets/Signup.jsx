@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-
+import { useSetUser } from "../hooks/supabase/useSetUser";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,8 +11,10 @@ const Signup = () => {
   const { session, signUpNewUser } = UserAuth();
   const navigate = useNavigate();
   console.log(session);
+  const {setUser} = useSetUser();
 
   if (session) {
+    setUser();
     navigate("/dashboard");
   }
 
@@ -23,7 +25,6 @@ const Signup = () => {
       const result = await signUpNewUser(email, password);
 
       if (result.success) {
-
         // navigate("/dashboard");   
       }
     } catch (err) {

@@ -1,31 +1,26 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
+import { UserAuth } from "../../context/AuthContext";
 import { supabase } from "../../supabaseClient";
 
 export const usePost = () => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-    
-    useEffect(() => {
-      post();
-    }, []);
+    const {session} = UserAuth();
   
-    async function post() {
+    async function post(content) {
       const date = new Date();
       const { data, error } = await supabase.from("posts").insert({
-        user_id: 123,
-        content: "",
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        good: 0,
-        katsu: 0, 
+        user_id: session.user.id,
+        content: content,
+        dateTime: date.toLocaleString(),
       });
-      setData(data);
       if(error) {
         console.error(error);
+      }
+      if(data) {
+        console.log("success: ",data);
       }
     }
 
     return {
-      data, error
+      post,
     }
 }

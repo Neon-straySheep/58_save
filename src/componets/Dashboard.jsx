@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Posts from "../component/Posts";
+import Posts from "../component/PostList";
+import Post from "../component/Post";
+import { useSetUser } from "../hooks/supabase/useSetUser";
 
 const Dashboard = () => {
   const { session, signOut } = UserAuth();
   const navigate = useNavigate();
+  // const {setUser} = useSetUser();
+  
+  // useEffect(() => {
+  //   if(session){
+  //     console.log("session", session);
+  //     setUser();
+  //   }
+  // },[])
 
   console.log(session);
 
@@ -23,6 +33,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <h2>Welcome, {session?.user?.email}</h2>
       <Posts/>
+      <Post />
       <div>
         <p
           onClick={handleSignOut}
