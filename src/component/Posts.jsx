@@ -1,7 +1,9 @@
-import { useGetAllPosts } from "../hooks/useGetAllPosts";
+import { usePost } from "../hooks/supabase/usePost";
+import { useGetAllPosts } from "../hooks/supabase/useGetAllPosts";
 
 function Posts() {
   const { posts } = useGetAllPosts();
+  const { data } = usePost();
 
   return (
     <>
@@ -10,6 +12,7 @@ function Posts() {
         {posts.map((post) => (
           <li key={post.name}>{post.name}</li>
         ))}
+        {data}
       </ul>
     </>
   );
