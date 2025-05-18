@@ -1,12 +1,12 @@
 import React from "react";
-import { Header } from "./Header";
-import { useUser } from "./provider/UserContext";
-import { useGetAllPosts } from "./hooks/supabase/useGetAllPosts";
-import { useKatsuPost } from "./hooks/supabase/useKatsuPost";
-import { useGoodPost } from "./hooks/supabase/useGoodPost";
+import { Header } from "../Header";
+import { useUser } from "../provider/UserContext";
+import { useGetAllPosts } from "../hooks/supabase/useGetAllPosts";
+import { useGoodPost } from "../hooks/supabase/useGoodPost";
+import { useKatsuPost } from "../hooks/supabase/useKatsuPost";
 
-export function Recent() {
-  const posts = useGetAllPosts(false);
+export default function App() {
+  const posts = useGetAllPosts(true);
   const { good } = useGoodPost(); // 善行をつける関数
   const { katsu } = useKatsuPost(); // 喝をつける関数
   // タグ：home, 役割：他の人のポストを表示

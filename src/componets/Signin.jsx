@@ -32,9 +32,9 @@ const Signin = () => {
   return (
     <div>
       <form onSubmit={handleSignIn} className="max-w-md m-auto pt-24">
-        <h2 className="font-bold pb-2">Sign in!</h2>
+        <h2 className="font-bold pb-2">サインイン</h2>
         <p>
-          Don't have an account? <Link to="/signup">Sign up!</Link>
+          アカウントをお持ちですか？ <Link to="/signup">新規登録</Link>
         </p>
         <div className="flex flex-col py-4">
           <input

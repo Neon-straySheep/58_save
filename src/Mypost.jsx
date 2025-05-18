@@ -1,32 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from './provider/UserContext';
-import { usePosts } from './provider/PostContext';
+
 import { GoodProvider } from './provider/Good.jsx';
 import { Link } from 'react-router'
 import { Header } from './Header';
+import { useGetMyPosts } from './hooks/supabase/useGetMyPosts.jsx';
+import { useGetGoodToatal } from './hooks/supabase/useGetGoodToatal.jsx';
+import { useGetGoodAmount } from './hooks/supabase/useGetGoodAmount.js';
+import { useGetKatsuAmount } from './hooks/supabase/useGetKatsuAmount.js';
 
 export function Mypost() {
+  const myPosts = useGetMyPosts();
   // タグ：Mypost, 役割；マイページ
   // この辺がAPIリクエストに置き換わる
   // const myId = "hogehoge"
   const {myId} = useUser()
-  const {posts} = usePosts()
+  // const {posts} = usePosts()
   // ーーーーーーーーーーー
   const [butsuzoBg, setButsuzoBg] = useState("-1")
 
   // いいねの合計が入る変数
   const [allLike, setAllLike] = useState(0)
 
+    const goodAmounts = useGetGoodAmount(myPosts);  // 自分の投稿の善行の数をとってくる
+    const katsuAmounts = useGetKatsuAmount(myPosts);  // 自分の投稿の喝の数をとってくる
+  
+
 
   // console.log(myId)
-  const onlyMyPosts = posts.filter(post => myId === post.userId)
+  // const onlyMyPosts = posts.filter(post => myId === post.userId)
 
   // 初回の合計いいね数取得
+  // useEffect(() => {
+  //   // TODO: 実際はAPIで取得
+  //   setAllLike(7)
+  //   console.log("likeを取得")
+  // }, [])
+  const goodTotal = useGetGoodToatal(); 
   useEffect(() => {
-    // TODO: 実際はAPIで取得
-    setAllLike(7)
-    console.log("likeを取得")
-  }, [])
+    setAllLike(goodTotal)
+    console.log("likeを取得", goodTotal)
+  }, [goodTotal])
 
   // allLikeの値が変わったときに背景を変更する
   useEffect(() => {
@@ -57,12 +71,18 @@ export function Mypost() {
         {/* <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div> */}
         {/* <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div> */}
         <div className="h-full overflow-y-scroll space-y-4">
-          {onlyMyPosts.map((post, index) => (
+          {myPosts.map((post, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-md p-4 text-gray-800"
+              className="flex justify-between items-center px-8 bg-white shadow-md rounded-md p-4 text-gray-800"
             >
+              <p>
               {post.content}
+              </p>
+              <div>
+                <p>善行：{goodAmounts[post.id]}</p>
+                <p>喝！：{katsuAmounts[post.id]}</p>
+              </div>
             </div>
           ))}
         </div>

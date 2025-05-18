@@ -4,6 +4,9 @@ import Signup from "./componets/Signup";
 import Signin from "./componets/Signin";
 import Dashboard from "./componets/Dashboard";
 import PrivateRoute from "./componets/PrivateRoute";
+import { Mypost } from "./Mypost";
+import { Form } from "./Form";
+import { Recent } from "./Recent";
 
 export const router = createBrowserRouter([
   { path: "/", element: <App /> },

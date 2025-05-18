@@ -39,9 +39,9 @@ const Signup = () => {
   return (
     <div>
       <form onSubmit={handleSiginUp} className="max-w-md m-auto pt-24">
-        <h2 className="font-bold pb-2">Sign up today!</h2>
+        <h2 className="font-bold pb-2">新規登録</h2>
         <p>
-          Already have an account? <Link to="/signin">Sign in!</Link>
+          アカウントを既に持っていますか？ <Link to="/signin">サインイン</Link>
         </p>
         <div className="flex flex-col py-4">
           <input

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Posts from "../component/PostList";
 import Post from "../component/Post";
 import { useSetUser } from "../hooks/supabase/useSetUser";
+import App from "./App";
 
 const Dashboard = () => {
   const { session, signOut } = UserAuth();
@@ -22,7 +23,7 @@ const Dashboard = () => {
   const handleSignOut = async (e) => {
     try {
       await signOut();
-      navigate("/");
+      navigate("/signin");
     } catch (err) {
       console.error(err);
     }
@@ -30,10 +31,11 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <App/>
+      {/* <h1>Dashboard</h1>
       <h2>Welcome, {session?.user?.email}</h2>
       <Posts/>
-      <Post />  {/*投稿入力欄（仮）*/}
+      <Post />  投稿入力欄（仮） */}
       <div>
         <p
           onClick={handleSignOut}

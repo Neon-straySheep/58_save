@@ -8,10 +8,14 @@ export const useGetMyPosts = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await getMyPosts();
+      if (session && session.user) {
+        await getMyPosts();
+      } else {
+        console.warn("Session or user is undefined");
+      }
     }
     fetchData();
-  }, []);
+  }, [session]);
 
   async function getMyPosts() {
     try {
@@ -20,9 +24,9 @@ export const useGetMyPosts = () => {
         .select("*")
         .eq("user_id", session.user.id)
         .order("id", { ascending: false });
-        setPosts(data);
-        console.log("myposts", data);
-        return data;
+      setPosts(data);
+      console.log("myposts", data);
+      return data;
     } catch (error) {
       console.error("Error fetching posts:", error);
     }

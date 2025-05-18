@@ -17,11 +17,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthContextProvider>
       <UserProvider>
-        <PostProvider>
           <GoodProvider>
             <RouterProvider router={router} />
           </GoodProvider>
-        </PostProvider>
       </UserProvider>
     </AuthContextProvider>
   </StrictMode>

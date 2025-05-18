@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { usePosts } from './provider/PostContext';
+// import { usePosts } from './provider/PostContext';
 import { GoodProvider } from './provider/Good.jsx';
 import { useNavigate } from 'react-router';
 import { Header } from './Header';
+import { usePost } from './hooks/supabase/usePost.jsx';
 
 export function Form() {
   const [content, setContent] = useState('');
-  const {addPost} = usePosts()
+  // const {addPost} = usePosts()
   const navigate = useNavigate();
+  const { post } = usePost();
 
   const [butsuzoBg, setButsuzoBg] = useState("-1")
 
@@ -16,7 +18,7 @@ export function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPost(content)
+    post(content)
     navigate("/mypost")
     // alert(`送信された内容: ${content}`);
   };
