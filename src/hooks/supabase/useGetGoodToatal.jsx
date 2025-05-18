@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetMyPosts } from './useGetMyPosts';
 import { useGetGoodAmount } from './useGetGoodAmount';
 
 export const useGetGoodToatal = () => {
     const [total, setData] = useState(0);
-    const { posts, getMyPosts } = useGetMyPosts();
-    const { getGoodAmount } = useGetGoodAmount();
+    const posts = useGetMyPosts();
+    const goodAmounts = useGetGoodAmount(posts);
 
-    async function getGoodToatal() {
-        await getMyPosts();
-        posts.map(async (post) => {
-                setData(total + getGoodAmount(post.id));
-            }
-        );
-    }
-  return {
-    total,
-    getGoodToatal,
-  };
+    useEffect(() => {
+        const getGoodToatal = () => {
+            setData(0);
+            posts.forEach((post) => {
+                setData((prevTotal) => prevTotal + goodAmounts[post.id]);
+            });
+        };
+        getGoodToatal();
+    }, [goodAmounts, posts]);
+  return total;
 };

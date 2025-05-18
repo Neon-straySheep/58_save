@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import { shuffleArray } from "../../unil/shffle";
 
-export const useGetAllPosts = () => {
+export const useGetAllPosts = (isShaffle) => {
   const [posts, setPosts] = useState([]);
+  const [shaffle] = useState(isShaffle);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,8 +18,11 @@ export const useGetAllPosts = () => {
       .from("posts")
       .select()
       .order("id", { ascending: false });
-    const shaffledData = shuffleArray(data);
-    setPosts(shaffledData);
+      setPosts(data);
+    if (shaffle) {
+      const shaffledData = shuffleArray(data);
+      setPosts(shaffledData);
+    }
     console.log(data);
   }
 

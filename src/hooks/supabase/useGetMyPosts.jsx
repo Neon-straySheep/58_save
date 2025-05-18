@@ -18,7 +18,8 @@ export const useGetMyPosts = () => {
       const { data } = await supabase
         .from("posts")
         .select("*")
-        .eq("user_id", session.user.id);
+        .eq("user_id", session.user.id)
+        .order("id", { ascending: false });
         setPosts(data);
         console.log("myposts", data);
         return data;

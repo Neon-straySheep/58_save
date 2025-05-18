@@ -2,14 +2,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 
-export const useGetGoodAmount = (myPosts) => {
-  const [goodAmounts, setGoodAmounts] = useState([]);
+export const useGetKatsuAmount = (myPosts) => {
+  const [katsuAmounts, setKatsuAmounts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       for (const post of myPosts) {
-        const amount = await getGoodAmount(post.id);
-        setGoodAmounts((prev) => ({
+        const amount = await getKatsuAmount(post.id);
+        setKatsuAmounts((prev) => ({
           ...prev,
           [post.id]: amount,
         }));
@@ -18,11 +18,11 @@ export const useGetGoodAmount = (myPosts) => {
     fetchData();
   }, [myPosts]);
 
-  async function getGoodAmount(postId) {
-    const { data } = await supabase.from("good").select("*").eq("id", postId);
+  async function getKatsuAmount(postId) {
+    const { data } = await supabase.from("katsu").select("*").eq("id", postId);
     console.log(postId, data.length);
     return data.length;
   }
 
-  return goodAmounts ;
+  return katsuAmounts ;
 };
