@@ -3,7 +3,7 @@ import { Header } from './Header';
 import { useUser } from './provider/UserContext';
 import { usePosts } from './provider/PostContext';
 
-export default function App() {
+export function Recent() {
   // タグ：home, 役割：他の人のポストを表示
   // この辺がAPIリクエストに置き換わる
     // const myId = "hogehoge"
@@ -24,7 +24,7 @@ export default function App() {
 
       {/* コンテンツ */}
       <div className=" mx-auto py-20 px-6 text-brack">
-        <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div>
+        {/* <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div> */}
         <div className="h-full overflow-y-scroll space-y-4">
           {posts.map((post, index) => (
             <div

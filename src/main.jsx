@@ -6,20 +6,25 @@ import App from './App.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Mypost } from './Mypost.jsx';
 import { Form } from './Form.jsx';
+import { Recent } from './Recent.jsx';
 import { UserProvider } from './provider/UserContext.jsx';
 import { PostProvider } from './provider/PostContext.jsx';
+import { GoodProvider } from './provider/Good.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
       <PostProvider>
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/mypost" element={<Mypost />} />
-          <Route path="/posts/new" element={<Form />} />
-        </Routes>
-        </BrowserRouter>
+        <GoodProvider>
+          <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/mypost" element={<Mypost />} />
+            <Route path="/posts/new" element={<Form />} />
+            <Route path="/recent" element={<Recent />} />
+          </Routes>
+          </BrowserRouter>
+        </GoodProvider>
       </PostProvider>
     </UserProvider>
   </StrictMode>,
