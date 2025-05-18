@@ -33,7 +33,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <h2>Welcome, {session?.user?.email}</h2>
       <Posts/>
-      <Post />
+      <Post />  {/*投稿入力欄（仮）*/}
       <div>
         <p
           onClick={handleSignOut}

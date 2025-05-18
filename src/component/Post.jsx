@@ -9,7 +9,7 @@ const Post = () => {
   return (
     <>
       <input
-        type="text"
+        type="textarea"
         placeholder="テキストを入力"
         value={content}
         onChange={(e) => setContent(e.target.value)}
