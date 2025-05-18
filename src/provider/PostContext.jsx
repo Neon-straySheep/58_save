@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useUser } from './UserContext';
+import { usePost } from '../hooks/supabase/usePost';
 
 const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
-  const [posts, setPosts] = useState([
+  const { post } = usePost();
+  const [posts] = useState([
     { id: 1, userId: 'hogehoge', content: 'これは短いテキストです。', date: '2025-05-16', time: '22:58:58.024' },
     { id: 2, userId: 'hogehoge', content: 'これは少し長めのテキストで、何行かに分かれる可能性があります。', date: '2025-05-16', time: '22:58:58.024' },
     { id: 3, userId: 'hogehoge', content: 'もっともっと長いテキストがここにあります。これにはさらに多くの情報が含まれており、スクロールできるようにしておく必要があります。', date: '2025-05-16', time: '22:58:58.024' },
@@ -15,14 +17,7 @@ export const PostProvider = ({ children }) => {
   const {myId} = useUser()
 
   const addPost = (content) => {
-    const newPost = {
-      id: posts[posts.length-1].id + 1,
-      userId: myId,
-      content,
-      date: new Date().toISOString().split('T')[0],
-      time: new Date().toISOString().split('T')[1].split('.')[0],
-    };
-    setPosts((prevPosts) => [...prevPosts, newPost]);
+    post(content);
   };
 
   return (
