@@ -5,10 +5,33 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 
-createRoot(document.getElementById('root')).render(
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Mypost } from "./Mypost.jsx";
+import { Form } from "./Form.jsx";
+import { Recent } from "./Recent.jsx";
+import { UserProvider } from "./provider/UserContext.jsx";
+import { PostProvider } from "./provider/PostContext.jsx";
+import { GoodProvider } from "./provider/Good.jsx";
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <PostProvider>
+          <GoodProvider>
+            <RouterProvider router={router} />
+          </GoodProvider>
+        </PostProvider>
+      </UserProvider>
     </AuthContextProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
+{
+  /* <UserProvider>
+<PostProvider>
+  <GoodProvider>
+
+  </GoodProvider>
+</PostProvider>
+</UserProvider> */
+}

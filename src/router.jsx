@@ -17,4 +17,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  {path: "/mypost", element: <Mypost /> },
+  {path: "/posts/new", element: <Form /> },
+  {path: "/recent", element: <Recent /> },
 ]);
