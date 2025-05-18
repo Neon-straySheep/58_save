@@ -21,32 +21,32 @@ export function Mypost() {
   // console.log(myId)
   const onlyMyPosts = posts.filter(post => myId === post.userId)
 
-// 初回の合計いいね数取得
-useEffect(() => {
-  // TODO: 実際はAPIで取得
-  setAllLike(11)
-  console.log("likeを取得")
-}, [])
+  // 初回の合計いいね数取得
+  useEffect(() => {
+    // TODO: 実際はAPIで取得
+    setAllLike(7)
+    console.log("likeを取得")
+  }, [])
 
-// allLikeの値が変わったときに背景を変更する
-useEffect(() => {
-  if (allLike <= 5) {
-    setButsuzoBg("/firstBustuzoNext.png")
-  } else if (allLike <= 10) {
-    setButsuzoBg("/secondBustuzoNext.png")
-  } else if (allLike <= 15) {
-    setButsuzoBg("/thirdBustuzoNext.png")
-  }
+  // allLikeの値が変わったときに背景を変更する
+  useEffect(() => {
+    if (allLike <= 5) {
+      setButsuzoBg("/firstButsuzoNext.png")
+    } else if (allLike <= 10) {
+      setButsuzoBg("/secondButsuzoNext.png")
+    } else if (allLike <= 15) {
+      setButsuzoBg("/thirdButsuzoNext.png")
+    }
 
-  console.log(butsuzoBg)
-}, [allLike])
+    console.log(butsuzoBg)
+  }, [allLike])
 
   return (
     <div className="relative min-h-screen bg-blue-100 z-0">
       {/* 背景画像 */}
       <div
         className="fixed inset-0 -z-10"
-        style={{ backgroundImage: butsuzoBg }}
+        style={{ backgroundImage: `url(${butsuzoBg})` }}
       />
       <div className="fixed left-1/2 transform -translate-x-1/2 top-4 z-10">
         <Header />
@@ -55,7 +55,7 @@ useEffect(() => {
       {/* コンテンツ */}
       <div className="max-w-3xl mx-auto py-20 px-6 text-brack p-4">
         {/* <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div> */}
-        <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div>
+        {/* <div className="text-4xl font-bold m-8">固定背景とスクロール可能な内容</div> */}
         <div className="h-full overflow-y-scroll space-y-4">
           {onlyMyPosts.map((post, index) => (
             <div

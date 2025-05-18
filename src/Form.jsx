@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePosts } from './provider/PostContext';
+import { GoodProvider } from './provider/Good.jsx';
 import { useNavigate } from 'react-router';
 import { Header } from './Header';
 
@@ -8,6 +9,11 @@ export function Form() {
   const {addPost} = usePosts()
   const navigate = useNavigate();
 
+  const [butsuzoBg, setButsuzoBg] = useState("-1")
+
+  // いいねの合計が入る変数
+  const [allLike, setAllLike] = useState(0)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     addPost(content)
@@ -15,12 +21,32 @@ export function Form() {
     // alert(`送信された内容: ${content}`);
   };
 
+  // 初回の合計いいね数取得
+    useEffect(() => {
+      // TODO: 実際はAPIで取得
+      setAllLike(11)
+      console.log("likeを取得")
+    }, [])
+  
+    // allLikeの値が変わったときに背景を変更する
+    useEffect(() => {
+      if (allLike <= 5) {
+        setButsuzoBg("/firstButsuzoNext.png")
+      } else if (allLike <= 10) {
+        setButsuzoBg("/secondButsuzoNext.png")
+      } else if (allLike <= 15) {
+        setButsuzoBg("/thirdButsuzoNext.png")
+      }
+  
+      console.log(butsuzoBg)
+    }, [allLike])
+
   return (
     <div className="relative min-h-screen">
       {/* 背景画像 */}
       <div
         className="absolute inset-0 -z-10 bg-center"
-        style={{ backgroundImage: "url('/firstButsuzoNext.png')" }}
+        style={{ backgroundImage: `url(${butsuzoBg})` }}
       />
       <div className="fixed left-1/2 transform -translate-x-1/2 top-4">
         <Header />
